@@ -4,7 +4,6 @@ public class Video {
 	private String title;
 	private VideoType videoType;
 	private PriceCode priceCode;
-	private Date registeredDate;
 	private boolean rented;
 
 	public Video(String title, VideoType videoType, PriceCode priceCode, Date registeredDate) {
@@ -51,14 +50,14 @@ public class Video {
 		this.rented = rented;
 	}
 
-	//dead code
-	//public Date getRegisteredDate() {
-	//	return registeredDate;
-	//}
+	// dead code
+	// public Date getRegisteredDate() {
+	// return registeredDate;
+	// }
 
-	//public void setRegisteredDate(Date registeredDate) {
-	//	this.registeredDate = registeredDate;
-	//}
+	// public void setRegisteredDate(Date registeredDate) {
+	// this.registeredDate = registeredDate;
+	// }
 
 	public VideoType getVideoType() {
 		return videoType;

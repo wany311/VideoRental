@@ -4,8 +4,9 @@ public class Video {
 	private String title;
 	private VideoType videoType;
 	private PriceCode priceCode;
-	private Date registeredDate;
 	private boolean rented;
+
+	private Date registeredDate;
 
 	public Video(String title, VideoType videoType, PriceCode priceCode, Date registeredDate) {
 		this.title = title;

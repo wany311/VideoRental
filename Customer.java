@@ -30,49 +30,16 @@ public class Customer {
 		rentals.add(rental);
 
 	}
-	private int getDaysRented(Rental rental) {
-		long diff;
-		if (rental.getStatus() == 1) { // returned Video
-			diff = rental.getReturnDate().getTime() - rental.getRentDate().getTime();
-		} else { // not yet returned
-			diff = new Date().getTime() - rental.getRentDate().getTime();
-		}
-		return (int) (diff / (1000 * 60 * 60 * 24)) + 1;
-	}
-
-	private double calculateCharge(Rental rental, int daysRented) {
-		double result = 0;
-		switch (rental.getVideo().getPriceCode()) {
-			case Video.REGULAR:
-				result += 2;
-				if (daysRented > 2)
-					result += (daysRented - 2) * 1.5;
-				break;
-			case Video.NEW_RELEASE:
-				result = daysRented * 3;
-				break;
-		}
-		return result;
-	}
 
 	private int calculatePoints(Rental rental, int daysRented) {
 		int points = 1;
-		if (rental.getVideo().getPriceCode() == Video.NEW_RELEASE) {
+		if (rental.getVideo().getPriceCode() == PriceCode.NEW_RELEASE) {
 			points++;
 		}
 		if (daysRented > rental.getDaysRentedLimit()) {
 			points -= Math.min(points, rental.getVideo().getLateReturnPointPenalty());
 		}
 		return points;
-	}
-
-	private void printCouponMessage(int totalPoint) {
-		if (totalPoint >= 10) {
-			System.out.println("Congrat! You earned one free coupon");
-		}
-		if (totalPoint >= 30) {
-			System.out.println("Congrat! You earned two free coupons");
-		}
 	}
 
 	private int getDaysRented(Rental rental) {
@@ -88,27 +55,16 @@ public class Customer {
 	private double calculateCharge(Rental rental, int daysRented) {
 		double result = 0;
 		switch (rental.getVideo().getPriceCode()) {
-			case Video.REGULAR:
+			case REGULAR:
 				result += 2;
 				if (daysRented > 2)
 					result += (daysRented - 2) * 1.5;
 				break;
-			case Video.NEW_RELEASE:
+			case NEW_RELEASE:
 				result = daysRented * 3;
 				break;
 		}
 		return result;
-	}
-
-	private int calculatePoints(Rental rental, int daysRented) {
-		int points = 1;
-		if (rental.getVideo().getPriceCode() == Video.NEW_RELEASE) {
-			points++;
-		}
-		if (daysRented > rental.getDaysRentedLimit()) {
-			points -= Math.min(points, rental.getVideo().getLateReturnPointPenalty());
-		}
-		return points;
 	}
 
 	private void printCouponMessage(int totalPoint) {

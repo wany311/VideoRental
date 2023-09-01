@@ -89,17 +89,16 @@ public class VRUI {
 	private void init() {
 		Customer james = new Customer("James") ;
 		Customer brown = new Customer("Brown") ;
-		customers.add(james) ;
-		customers.add(brown) ;
+		cm.addCustomer(james);
+		cm.addCustomer(brown);
 
 		Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
 		Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
-		videos.add(v1) ;
-		videos.add(v2) ;
+		vm.addVideo(v1);
+		vm.addVideo(v2);
 
 		Rental r1 = new Rental(v1) ;
 		Rental r2 = new Rental(v2) ;
-
 		james.addRental(r1) ;
 		james.addRental(r2) ;
 	}
@@ -108,13 +107,7 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = cm.getCustomer(customerName)
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
@@ -189,6 +182,8 @@ class VideoManager {
 		}
 		System.out.println("End of list");
 	}
+
+	public void addVideo(Video v) { videos.add(v); }
 }
 class RentalManager {
 	private static Scanner scanner = new Scanner(System.in) ;
@@ -261,4 +256,6 @@ class CustomerManager {
 		}
 		System.out.println("End of list");
 	}
+
+	public void addCustomer(Customer c) {customers.add(c);}
 }

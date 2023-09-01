@@ -1,41 +1,37 @@
 import java.util.Date;
 
 public class Video {
-	private String title ;
+	private String title;
+	private VideoType videoType;
+	private PriceCode priceCode;
+	private Date registeredDate;
+	private boolean rented;
 
-	private int priceCode ;
-	public static final int REGULAR = 1 ;
-	public static final int NEW_RELEASE =2 ;
-
-	private int videoType ;
-	public static final int VHS = 1 ;
-	public static final int CD = 2 ;
-	public static final int DVD = 3 ;
-
-	private Date registeredDate ;
-	private boolean rented ;
-
-	public Video(String title, int videoType, int priceCode, Date registeredDate) {
-		this.setTitle(title) ;
-		this.setVideoType(videoType) ;
-		this.setPriceCode(priceCode) ;
-		this.registeredDate = registeredDate ;
+	public Video(String title, VideoType videoType, PriceCode priceCode, Date registeredDate) {
+		this.title = title;
+		this.videoType = videoType;
+		this.priceCode = priceCode;
+		this.registeredDate = registeredDate;
 	}
 
 	public int getLateReturnPointPenalty() {
-		int pentalty = 0 ;
-		switch ( videoType ) {
-			case VHS: pentalty = 1 ; break ;
-			case CD: pentalty = 2 ; break ;
-			case DVD: pentalty = 3 ; break ;
+		switch (videoType) {
+			case VHS:
+				return 1;
+			case CD:
+				return 2;
+			case DVD:
+				return 3;
+			default:
+				return 0; // 알 수 없는 유형의 경우
 		}
-		return pentalty ;
 	}
-	public int getPriceCode() {
+
+	public PriceCode getPriceCode() {
 		return priceCode;
 	}
 
-	public void setPriceCode(int priceCode) {
+	public void setPriceCode(PriceCode priceCode) {
 		this.priceCode = priceCode;
 	}
 
@@ -59,7 +55,7 @@ public class Video {
 		return videoType;
 	}
 
-	public void setVideoType(int videoType) {
+	public void setVideoType(VideoType videoType) {
 		this.videoType = videoType;
 	}
 }

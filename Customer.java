@@ -55,6 +55,26 @@ public class Customer {
 		return result;
 	}
 
+	private int calculatePoints(Rental rental, int daysRented) {
+		int points = 1;
+		if (rental.getVideo().getPriceCode() == Video.NEW_RELEASE) {
+			points++;
+		}
+		if (daysRented > rental.getDaysRentedLimit()) {
+			points -= Math.min(points, rental.getVideo().getLateReturnPointPenalty());
+		}
+		return points;
+	}
+
+	private void printCouponMessage(int totalPoint) {
+		if (totalPoint >= 10) {
+			System.out.println("Congrat! You earned one free coupon");
+		}
+		if (totalPoint >= 30) {
+			System.out.println("Congrat! You earned two free coupons");
+		}
+	}
+
 	public String getReport() {
 		String result = "Customer Report for " + getName() + "\n";
 
@@ -64,31 +84,19 @@ public class Customer {
 		for (Rental each : rentals) {
 			int daysRented = getDaysRented(each);
 			double eachCharge = calculateCharge(each, daysRented);
-			int eachPoint = 1;
-
-			if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE) )
-				eachPoint++;
-
-			if ( daysRented > each.getDaysRentedLimit() )
-				eachPoint -= Math.min(eachPoint, each.getVideo().getLateReturnPointPenalty()) ;
+			int eachPoint = calculatePoints(each, daysRented);
 
 			result += "\t" + each.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
 					+ "\tPoint: " + eachPoint + "\n";
 
 			totalCharge += eachCharge;
-
-			totalPoint += eachPoint ;
+			totalPoint += eachPoint;
 		}
 
 		result += "Total charge: " + totalCharge + "\tTotal Point:" + totalPoint + "\n";
 
+		printCouponMessage(totalPoint);
 
-		if ( totalPoint >= 10 ) {
-			System.out.println("Congrat! You earned one free coupon");
-		}
-		if ( totalPoint >= 30 ) {
-			System.out.println("Congrat! You earned two free coupon");
-		}
-		return result ;
+		return result;
 	}
 }

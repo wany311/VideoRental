@@ -200,12 +200,10 @@ class VideoManager {
 	}
 
 	public void listVideos() {
-		System.out.println("List of videos");
 
 		for (Video video : videos) {
 			System.out.println("Price code: " + video.getPriceCode() + "\tTitle: " + video.getTitle());
 		}
-		System.out.println("End of list");
 	}
 
 	public void addVideo(Video v) {
@@ -274,7 +272,6 @@ class CustomerManager {
 	}
 
 	public void listCustomers() {
-		System.out.println("List of customers");
 		for (Customer customer : customers) {
 			System.out.println("Name: " + customer.getName() +
 					"\tRentals: " + customer.getRentals().size());
@@ -283,7 +280,6 @@ class CustomerManager {
 				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode());
 			}
 		}
-		System.out.println("End of list");
 	}
 
 	public void addCustomer(Customer c) {

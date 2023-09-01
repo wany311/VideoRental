@@ -4,30 +4,51 @@ import java.util.List;
 import java.util.Scanner;
 
 public class VRUI {
-	private static Scanner scanner = new Scanner(System.in) ;
+	private static Scanner scanner = new Scanner(System.in);
 
 	private VideoManager vm = new VideoManager();
 	private CustomerManager cm = new CustomerManager();
 	private RentalManager rm = new RentalManager();
 
 	public static void main(String[] args) {
-		VRUI ui = new VRUI() ;
+		VRUI ui = new VRUI();
 
-		boolean quit = false ;
-		while ( ! quit ) {
-			int command = ui.showCommand() ;
-			switch ( command ) {
-				case 0: quit = true ; break ;
-				case 1: ui.listCustomers() ; break ;
-				case 2: ui.listVideos() ; break ;
-				case 3: ui.register("customer") ; break ;
-				case 4: ui.register("video") ; break ;
-				case 5: ui.rentVideo() ; break ;
-				case 6: ui.returnVideo() ; break ;
-				case 7: ui.getCustomerReport() ; break;
-				case 8: ui.clearRentals() ; break ;
-				case -1: ui.init() ; break ;
-				default: break ;
+		boolean quit = false;
+		while (!quit) {
+			int command = ui.showCommand();
+			switch (command) {
+				case 0:
+					quit = true;
+					break;
+				case 1:
+					ui.listCustomers();
+					break;
+				case 2:
+					ui.listVideos();
+					break;
+				case 3:
+					ui.register("customer");
+					break;
+				case 4:
+					ui.register("video");
+					break;
+				case 5:
+					ui.rentVideo();
+					break;
+				case 6:
+					ui.returnVideo();
+					break;
+				case 7:
+					ui.getCustomerReport();
+					break;
+				case 8:
+					ui.clearRentals();
+					break;
+				case -1:
+					ui.init();
+					break;
+				default:
+					break;
 			}
 		}
 		System.out.println("Bye");
@@ -80,8 +101,8 @@ public class VRUI {
 
 		if ( foundCustomer == null ) return ;
 
-		System.out.println("Enter video title to return: ") ;
-		String videoTitle = scanner.next() ;
+		System.out.println("Enter video title to return: ");
+		String videoTitle = scanner.next();
 
 		rm.returnVideo(foundCustomer, videoTitle);
 	}
@@ -109,10 +130,10 @@ public class VRUI {
 
 		Customer foundCustomer = cm.getCustomer(customerName);
 
-		if ( foundCustomer == null ) {
-			System.out.println("No customer found") ;
+		if (foundCustomer == null) {
+			System.out.println("No customer found");
 		} else {
-			String result = foundCustomer.getReport() ;
+			String result = foundCustomer.getReport();
 			System.out.println(result);
 		}
 	}
@@ -123,10 +144,11 @@ public class VRUI {
 
 		Customer foundCustomer = cm.getCustomer(customerName);
 
-		if ( foundCustomer == null ) return ;
+		if (foundCustomer == null)
+			return;
 
-		System.out.println("Enter video title to rent: ") ;
-		String videoTitle = scanner.next() ;
+		System.out.println("Enter video title to rent: ");
+		String videoTitle = scanner.next();
 
 		Video foundVideo = vm.getVideo(videoTitle);
 
@@ -219,7 +241,7 @@ class RentalManager {
 		Rental rental = new Rental(foundVideo) ;
 		foundVideo.setRented(true);
 
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
+		List<Rental> customerRentals = foundCustomer.getRentals();
 		customerRentals.add(rental);
 		foundCustomer.setRentals(customerRentals);
 	}

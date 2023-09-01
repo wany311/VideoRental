@@ -31,27 +31,27 @@ public class Customer {
 		rentals.add(rental);
 
 	}
+	private int getDaysRented(Rental rental) {
+		long diff;
+		if (rental.getStatus() == 1) { // returned Video
+			diff = rental.getReturnDate().getTime() - rental.getRentDate().getTime();
+		} else { // not yet returned
+			diff = new Date().getTime() - rental.getRentDate().getTime();
+		}
+		return (int) (diff / (1000 * 60 * 60 * 24)) + 1;
+	}
 
 	public String getReport() {
 		String result = "Customer Report for " + getName() + "\n";
-
-		List<Rental> rentals = getRentals();
 
 		double totalCharge = 0;
 		int totalPoint = 0;
 
 		for (Rental each : rentals) {
 			double eachCharge = 0;
-			int eachPoint = 0 ;
-			int daysRented = 0;
+			int eachPoint = 0;
 
-			if (each.getStatus() == 1) { // returned Video
-				long diff = each.getReturnDate().getTime() - each.getRentDate().getTime();
-				daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
-			} else { // not yet returned
-				long diff = new Date().getTime() - each.getRentDate().getTime();
-				daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
-			}
+			int daysRented = getDaysRented(each);
 
 			switch (each.getVideo().getPriceCode()) {
 			case Video.REGULAR:

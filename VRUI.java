@@ -91,28 +91,6 @@ public class VRUI {
 		james.addRental(r2) ;
 	}
 
-	public void listVideos() {
-		System.out.println("List of videos");
-
-		for ( Video video: videos ) {
-			System.out.println("Price code: " + video.getPriceCode() +"\tTitle: " + video.getTitle()) ;
-		}
-		System.out.println("End of list");
-	}
-
-	public void listCustomers() {
-		System.out.println("List of customers");
-		for ( Customer customer: customers ) {
-			System.out.println("Name: " + customer.getName() +
-					"\tRentals: " + customer.getRentals().size()) ;
-			for ( Rental rental: customer.getRentals() ) {
-				System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
-				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
-			}
-		}
-		System.out.println("End of list");
-	}
-
 	public void getCustomerReport() {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
@@ -189,6 +167,15 @@ class VideoManager {
 		}
 		return foundVideo;
 	}
+
+	public void listVideos() {
+		System.out.println("List of videos");
+
+		for ( Video video: videos ) {
+			System.out.println("Price code: " + video.getPriceCode() +"\tTitle: " + video.getTitle()) ;
+		}
+		System.out.println("End of list");
+	}
 }
 class RentalManager {
 	private static Scanner scanner = new Scanner(System.in) ;
@@ -247,5 +234,18 @@ class CustomerManager {
 		}
 
 		return foundCustomer;
+	}
+
+	public void listCustomers() {
+		System.out.println("List of customers");
+		for ( Customer customer: customers ) {
+			System.out.println("Name: " + customer.getName() +
+					"\tRentals: " + customer.getRentals().size()) ;
+			for ( Rental rental: customer.getRentals() ) {
+				System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
+				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
+			}
+		}
+		System.out.println("End of list");
 	}
 }

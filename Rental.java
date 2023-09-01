@@ -49,13 +49,13 @@ public class Rental {
 			return limit;
 
 		switch (video.getVideoType()) {
-			case Video.VHS:
+			case VHS:
 				limit = 5;
 				break;
-			case Video.CD:
+			case CD:
 				limit = 3;
 				break;
-			case Video.DVD:
+			case DVD:
 				limit = 2;
 				break;
 		}

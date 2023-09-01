@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Customer {
 	private String name;
-
 	private List<Rental> rentals = new ArrayList<Rental>();
 
 	public Customer(String name) {
@@ -41,6 +40,21 @@ public class Customer {
 		return (int) (diff / (1000 * 60 * 60 * 24)) + 1;
 	}
 
+	private double calculateCharge(Rental rental, int daysRented) {
+		double result = 0;
+		switch (rental.getVideo().getPriceCode()) {
+			case Video.REGULAR:
+				result += 2;
+				if (daysRented > 2)
+					result += (daysRented - 2) * 1.5;
+				break;
+			case Video.NEW_RELEASE:
+				result = daysRented * 3;
+				break;
+		}
+		return result;
+	}
+
 	public String getReport() {
 		String result = "Customer Report for " + getName() + "\n";
 
@@ -48,23 +62,9 @@ public class Customer {
 		int totalPoint = 0;
 
 		for (Rental each : rentals) {
-			double eachCharge = 0;
-			int eachPoint = 0;
-
 			int daysRented = getDaysRented(each);
-
-			switch (each.getVideo().getPriceCode()) {
-			case Video.REGULAR:
-				eachCharge += 2;
-				if (daysRented > 2)
-					eachCharge += (daysRented - 2) * 1.5;
-				break;
-			case Video.NEW_RELEASE:
-				eachCharge = daysRented * 3;
-				break;
-			}
-
-			eachPoint++;
+			double eachCharge = calculateCharge(each, daysRented);
+			int eachPoint = 1;
 
 			if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE) )
 				eachPoint++;

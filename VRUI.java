@@ -70,14 +70,7 @@ public class VRUI {
 		System.out.println("Enter video title to return: ") ;
 		String videoTitle = scanner.next() ;
 
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
-		for ( Rental rental: customerRentals ) {
-			if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
-				rental.returnVideo();
-				rental.getVideo().setRented(false);
-				break ;
-			}
-		}
+		rm.returnVideo(foundCustomer, videoTitle);
 	}
 
 	private void init() {
@@ -224,12 +217,7 @@ class RentalManager {
 		}
 	}
 
-	public void returnVideo(Customer foundCustomer) {
-		if ( foundCustomer == null ) return ;
-
-		System.out.println("Enter video title to return: ") ;
-		String videoTitle = scanner.next() ;
-
+	public void returnVideo(Customer foundCustomer, String videoTitle) {
 		List<Rental> customerRentals = foundCustomer.getRentals() ;
 		for ( Rental rental: customerRentals ) {
 			if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
@@ -258,18 +246,5 @@ class CustomerManager {
 		}
 
 		return foundCustomer;
-	}
-
-	public void returnVideo(Customer foundCustomer) {
-
-
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
-		for ( Rental rental: customerRentals ) {
-			if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
-				rental.returnVideo();
-				rental.getVideo().setRented(false);
-				break ;
-			}
-		}
 	}
 }

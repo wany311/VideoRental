@@ -55,15 +55,6 @@ public class Video {
 		this.rented = rented;
 	}
 
-	//dead code
-	//public Date getRegisteredDate() {
-	//	return registeredDate;
-	//}
-
-	//public void setRegisteredDate(Date registeredDate) {
-	//	this.registeredDate = registeredDate;
-	//}
-
 	public int getVideoType() {
 		return videoType;
 	}

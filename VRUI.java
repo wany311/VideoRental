@@ -137,35 +137,18 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = cm.getCustomer(customerName);
 
 		if ( foundCustomer == null ) return ;
 
 		System.out.println("Enter video title to rent: ") ;
 		String videoTitle = scanner.next() ;
 
-		Video foundVideo = null ;
-		for ( Video video: videos ) {
-			if ( video.getTitle().equals(videoTitle) && video.isRented() == false ) {
-				foundVideo = video ;
-				break ;
-			}
-		}
+		Video foundVideo = vm.getVideo(videoTitle);
 
-		if ( foundVideo == null ) return ;
+		if ( foundVideo == null ) return;
 
-		Rental rental = new Rental(foundVideo) ;
-		foundVideo.setRented(true);
-
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
-		customerRentals.add(rental);
-		foundCustomer.setRentals(customerRentals);
+		rm.rentVideo(foundCustomer, foundVideo);
 	}
 
 	public int showCommand() {
@@ -196,7 +179,16 @@ class VideoManager {
 		videos.add(video) ;
 	}
 
-	public void clearRentals() {}
+	public Video getVideo(String videoTitle) {
+		Video foundVideo = null ;
+		for ( Video video: videos ) {
+			if ( video.getTitle().equals(videoTitle) && video.isRented() == false ) {
+				foundVideo = video ;
+				break ;
+			}
+		}
+		return foundVideo;
+	}
 }
 class RentalManager {
 	private static Scanner scanner = new Scanner(System.in) ;
@@ -226,6 +218,15 @@ class RentalManager {
 				break ;
 			}
 		}
+	}
+
+	public void rentVideo(Customer foundCustomer, Video foundVideo) {
+		Rental rental = new Rental(foundVideo) ;
+		foundVideo.setRented(true);
+
+		List<Rental> customerRentals = foundCustomer.getRentals() ;
+		customerRentals.add(rental);
+		foundCustomer.setRentals(customerRentals);
 	}
 }
 class CustomerManager {

@@ -32,6 +32,19 @@ public class VRUI {
 		}
 		System.out.println("Bye");
 	}
+
+	public void listCustomers() {
+		System.out.println("List of customers");
+		cm.listCustomers();
+		System.out.println("End of list");
+	}
+
+	public void listVideos() {
+		System.out.println("List of videos");
+		vm.listVideos();
+		System.out.println("End of list");
+	}
+
 	public void register(String object) {
 		if ( object.equals("customer") ) {
 			System.out.println("Enter customer name: ") ;
